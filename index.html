@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TweetGenAI</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; }
+        .container { max-width: 600px; margin: 40px auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #1da1f2; text-align: center; margin-bottom: 30px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input[type="text"] { width: calc(100% - 20px); padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        button { background-color: #1da1f2; color: white; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 18px; width: 100%; transition: background-color 0.3s ease; }
+        button:hover { background-color: #0d8ddb; }
+        #result { margin-top: 30px; padding: 20px; border: 1px dashed #1da1f2; border-radius: 6px; background-color: #e8f5fd; min-height: 80px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 1.1em; color: #333; font-style: italic; }
+        #loading { text-align: center; margin-top: 20px; display: none; color: #1da1f2; }
+        footer { text-align: center; margin-top: 50px; color: #777; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TweetGenAI: Instant Micro-Tweets</h1>
+        <label for="topic">Enter Topic or Keyword:</label>
+        <input type="text" id="topic" placeholder="e.g., AI in marketing, digital nomad life, healthy eating tips">
+        <button onclick="generateTweet()">Generate Tweet</button>
+        <div id="loading">Generating your tweet...</div>
+        <div id="result">Your engaging tweet will appear here!</div>
+        <footer>Powered by APEX</footer>
+    </div>
+
+    <script>
+        async function generateTweet() {
+            const topic = document.getElementById('topic').value;
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+            if (!topic) {
+                resultDiv.innerText = "Please enter a topic or keyword to generate a tweet.";
+                return;
+            }
+            loadingDiv.style.display = 'block';
+            resultDiv.innerText = '';
+
+            try {
+                // Placeholder for actual API call
+                // In a real app, this would call your backend endpoint that connects to OpenAI/HuggingFace
+                const response = await new Promise(resolve => setTimeout(() => {
+                    const mockTweets = [
+                        `🚀 Future of ${topic} is here! Don't get left behind. #Innovation #Tech`, 
+                        `💡 Master ${topic} with these 3 killer tips! Drop a ❤️ if you agree! #Strategy #Learn`, 
+                        `🤯 The one thing nobody tells you about ${topic}... Get ready for a game-changer! #Insights #Growth`
+                    ];
+                    resolve({ tweet: mockTweets[Math.floor(Math.random() * mockTweets.length)] });
+                }, 1500)); 
+                resultDiv.innerText = response.tweet;
+            } catch (error) {
+                console.error('Error generating tweet:', error);
+                resultDiv.innerText = 'Failed to generate tweet. Please try again later.';
+            }
+            loadingDiv.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
